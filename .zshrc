@@ -59,8 +59,17 @@ zstyle ':completion:*' menu no
 zstyle ':fzf-tab:*' fzf-command fzf
 zstyle ':fzf-tab:complete:cd:*' fzf-preview 'ls --color $realpath'
 
+zstyle ':prompt:pure:prompt:success' color white 
+
 # Aliases
-alias ls='ls --color'
+alias ls="eza --color=always --long --git --no-filesize --icons=always --no-time --no-user --no-permissions --grid"
+alias v="/home/julian/.local/bin/lvim"
+alias d_stop="docker stop $(docker ps -a -q)"
+alias d_rm="docker rm $(docker ps -a -q)"
 
 # Load fzf-tab last
 zinit light Aloxaf/fzf-tab
+
+# PATH EXPORT FOR GO LIB
+export PATH=$HOME/go/bin:/usr/local/go/bin:$PATH
+export PATH="$PATH:/opt/nvim-linux64/bin"
