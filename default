@@ -1,0 +1,295 @@
+# Logo key. Use Mod1 for Alt.
+set $mod Mod4
+
+# Add Vim key support
+set $left h
+set $down j
+set $up k
+set $right l
+
+# Set default terminal emulator
+set $term footclient
+
+# Application launcher
+set $launcher fuzzel
+
+# Application menu
+set $menu nwg-drawer
+
+# Power Menu
+set $powermenu ~/.config/sway/scripts/power_menu.sh
+
+# Monitor Support
+set $main_monitor DP-2
+set $secondary_monitor DP-3
+
+### Key bindings
+#
+# Basics:
+#
+    # Launch the terminal
+    bindsym $mod+Return exec $term
+
+    # Open the power menu
+    bindsym $mod+Shift+e exec $powermenu
+
+    # Kill focused window
+    bindsym $mod+q kill
+
+    # Start your launcher
+    bindsym $mod+d exec $launcher
+
+    # Menu
+    bindsym $mod+Shift+d exec $menu
+
+    # Lock screen
+    bindsym $mod+f1 exec gtklock
+
+    # Activities
+    bindsym $mod+p exec ~/.config/sway/scripts/window_switcher.sh
+
+    # Move windows by holding down $mod and left mouse button.
+    # Resize them with right mouse button + $mod.
+    # Change "normal" to "inverse" to switch left and right
+    floating_modifier $mod normal
+
+    # Reload the configuration file
+    bindsym $mod+Shift+c reload
+
+
+# Workspace Definitions:
+set $ws1 "1"
+set $ws1a "1a"
+set $ws2 "2"
+set $ws2a "2a"
+set $ws3 "3"
+set $ws3a "3a"
+set $ws4 "4"
+set $ws4a "4a"
+set $ws5 "5"
+set $ws5a "5a"
+set $ws6 "6"
+set $ws6a "6a"
+set $ws7 "7"
+set $ws7a "7a"
+set $ws8 "8"
+set $ws8a "8a"
+set $ws9 "9"
+set $ws9a "9a"
+
+workspace $ws1 output $main_monitor
+workspace $ws1a output $secondary_monitor
+workspace $ws2 output $main_monitor
+workspace $ws2a output $secondary_monitor
+workspace $ws3 output $main_monitor
+workspace $ws3a output $secondary_monitor
+workspace $ws4 output $main_monitor
+workspace $ws4a output $secondary_monitor
+workspace $ws5 output $main_monitor
+workspace $ws5a output $secondary_monitor
+workspace $ws6 output $main_monitor
+workspace $ws6a output $secondary_monitor
+workspace $ws7 output $main_monitor
+workspace $ws7a output $secondary_monitor
+workspace $ws8 output $main_monitor
+workspace $ws8a output $secondary_monitor
+workspace $ws9 output $main_monitor
+workspace $ws9a output $secondary_monitor
+
+
+# Key bindings for switching to workspaces A–I on DP-2
+bindsym $mod+ctrl+1 workspace $ws1a
+bindsym $mod+ctrl+2 workspace $ws2a
+bindsym $mod+ctrl+3 workspace $ws3a
+bindsym $mod+ctrl+4 workspace $ws4a
+bindsym $mod+ctrl+5 workspace $ws5a
+bindsym $mod+ctrl+6 workspace $ws6a
+bindsym $mod+ctrl+7 workspace $ws7a
+bindsym $mod+ctrl+8 workspace $ws8a
+bindsym $mod+ctrl+9 workspace $ws9a
+
+# Move the current container and workspace to the corresponding "a" workspace
+bindsym $mod+Shift+Tab exec swaymsg move container to workspace $(swaymsg -t get_workspaces | jq -r '.[] | select(.focused == true) | .name')a
+
+
+# Move focused window to workspace 1a-9a on DP-3
+bindsym $mod+ctrl+Shift+1 move container to workspace 1a; workspace 1a
+bindsym $mod+ctrl+Shift+2 move container to workspace 2a; workspace 2a
+bindsym $mod+ctrl+Shift+3 move container to workspace 3a; workspace 3a
+bindsym $mod+ctrl+Shift+4 move container to workspace 4a; workspace 4a
+bindsym $mod+ctrl+Shift+5 move container to workspace 5a; workspace 5a
+bindsym $mod+ctrl+Shift+6 move container to workspace 6a; workspace 6a
+bindsym $mod+ctrl+Shift+7 move container to workspace 7a; workspace 7a
+bindsym $mod+ctrl+Shift+8 move container to workspace 8a; workspace 8a
+bindsym $mod+ctrl+Shift+9 move container to workspace 9a; workspace 9a
+
+#
+# Moving around:
+#
+    bindsym {
+        # Change window focus
+        $mod+Left focus left
+        $mod+Down focus down
+        $mod+Up focus up
+        $mod+Right focus right
+        # Vim key support
+        $mod+$left focus left
+        $mod+$down focus down
+        $mod+$up focus up
+        $mod+$right focus right
+
+        # Move the focused window
+        $mod+Shift+Left move left
+        $mod+Shift+Down move down
+        $mod+Shift+Up move up
+        $mod+Shift+Right move right
+        # Vim key support
+        $mod+Shift+$left move left
+        $mod+Shift+$down move down
+        $mod+Shift+$up move up
+        $mod+Shift+$right move right
+    }
+
+#
+# Workspaces:
+#
+    # Workspace bindings are using bindcode instead of bindsym for better Azerty compatibility.
+    # https://github.com/EndeavourOS-Community-Editions/sway/pull/81
+    # Use wev to find keycodes for setting up other bindings this way.
+
+    bindcode {
+        # Switch to workspace
+        $mod+10 workspace $ws1a; workspace $ws1
+        $mod+11 workspace $ws2a; workspace $ws2
+        $mod+12 workspace $ws3a; workspace $ws3
+        $mod+13 workspace $ws4a; workspace $ws4
+        $mod+14 workspace $ws5a; workspace $ws5
+	$mod+15 workspace $ws6a; workspace $ws6
+	$mod+16 workspace $ws7a; workspace $ws7
+	$mod+17 workspace $ws8a; workspace $ws8
+	$mod+18 workspace $ws9a; workspace $ws9
+
+        # Move focused container to workspace
+        $mod+Shift+10 move container to workspace $ws1; workspace $ws1a; workspace $ws1
+        $mod+Shift+11 move container to workspace $ws2; workspace $ws2a; workspace $ws2
+        $mod+Shift+12 move container to workspace $ws3; workspace $ws3a; workspace $ws3
+        $mod+Shift+13 move container to workspace $ws4; workspace $ws4a; workspace $ws4
+        $mod+Shift+14 move container to workspace $ws5; workspace $ws5a; workspace $ws5
+        $mod+Shift+15 move container to workspace $ws6; workspace $ws6a; workspace $ws6
+        $mod+Shift+16 move container to workspace $ws7; workspace $ws7a; workspace $ws7
+        $mod+Shift+17 move container to workspace $ws8; workspace $ws8a; workspace $ws8
+        $mod+Shift+18 move container to workspace $ws9; workspace $ws9a; workspace $ws9
+    }
+    # Note: workspaces can have any name you want, not just numbers.
+    # We just use 1-10 as the default.
+
+#
+# Layout stuff:
+#
+    # Set how the current window will be split
+    # Split the window vertically
+    bindsym $mod+v splitv
+    # Split the window horizontally
+    bindsym $mod+b splith
+
+    # Switch the current container between different layout styles
+    bindsym $mod+s layout stacking
+    bindsym $mod+w layout tabbed
+    bindsym $mod+e layout toggle split
+
+    # Make the current focus fullscreen
+    bindsym $mod+f fullscreen
+
+    # Toggle between tiling and floating mode
+    bindsym $mod+Shift+space floating toggle
+
+    # Swap focus between the tiling area and the floating area
+    bindsym $mod+space focus mode_toggle
+
+    # Move focus to the parent container
+    bindsym $mod+a focus parent
+
+#
+# Scratchpad:
+#
+    # Sway has a "scratchpad", which is a bag of holding for windows.
+    # You can send windows there and get them back later.
+
+    # Move the currently focused window to the scratchpad
+    bindsym $mod+Shift+minus move scratchpad
+
+    # Show the next scratchpad window or hide the focused scratchpad window.
+    # If there are multiple scratchpad windows, this command cycles through them.
+    bindsym $mod+minus scratchpad show
+
+#
+# Resizing containers:
+#
+    bindsym {
+        # Resize with arrow keys
+        $mod+ctrl+Right resize shrink width 10 px
+        $mod+ctrl+Up resize grow height 10 px
+        $mod+ctrl+Down resize shrink height 10 px
+        $mod+ctrl+Left resize grow width 10 px
+        # Resize with Vim keys
+        $mod+ctrl+l resize shrink width 10 px
+        $mod+ctrl+k resize grow height 10 px
+        $mod+ctrl+j resize shrink height 10 px
+        $mod+ctrl+h resize grow width 10 px
+    }
+
+    # Resize floating windows with mouse scroll:
+    bindsym --whole-window --border {
+        # Resize vertically
+        $mod+button4 resize shrink height 5 px or 5 ppt
+        $mod+button5 resize grow height 5 px or 5 ppt
+        # Resize horizontally
+        $mod+Shift+button4 resize shrink width 5 px or 5 ppt
+        $mod+Shift+button5 resize grow width 5 px or 5 ppt
+    }
+
+#
+# Media Keys
+#
+    bindsym {
+        # Volume
+        XF86AudioRaiseVolume exec pamixer -ui 2
+        XF86AudioLowerVolume exec pamixer -ud 2
+        XF86AudioMute exec pamixer --toggle-mute
+
+        # Player
+        XF86AudioPlay exec playerctl play-pause
+        XF86AudioNext exec playerctl next
+        XF86AudioPrev exec playerctl previous
+
+        # Backlight
+        XF86MonBrightnessUp exec brightnessctl -c backlight set +5%
+        XF86MonBrightnessDown exec brightnessctl -c backlight set 5%-
+    }
+
+#
+# App shortcuts
+#
+    # Launch the file explorer
+    bindsym $mod+n exec thunar
+
+    # Launch the browser
+    bindsym $mod+o exec zen-browser
+
+    # Launch the clipboard manager
+    bindsym $mod+Ctrl+v exec cliphist list | fuzzel -d -w 90 -l 30 -p "Select an entry to copy it to your clipboard buffer:"| cliphist decode | wl-copy
+    # Delete an entry from the clipboard manager
+    bindsym $mod+Ctrl+x exec cliphist list | fuzzel -d -w 90 -l 30 -t cc9393ff -S cc9393ff -p "Select an entry to delete it from cliphist:"| cliphist delete
+    # Note: you can clear all cliphist entries by running `cliphist wipe`
+
+#
+# Screenshots
+#
+    # Snip a selection and pipe to swappy
+    bindsym print exec grim -g "$(slurp)" - | swappy -f -
+    # Screenshot a window and pipe to swappy
+    bindsym Ctrl+Print exec ~/.config/sway/scripts/screenshot_window.sh
+    # Screenshot the current display and pipe to swappy
+    bindsym Shift+Print exec ~/.config/sway/scripts/screenshot_display.sh
+
+
